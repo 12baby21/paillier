@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/wjf/Desktop/MyPaillier/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-9    -g   -std=c++14 -o CMakeFiles/Quickmodm.dir/Quickmodm.cpp.o -c /home/wjf/Desktop/MyPaillier/Quickmodm.cpp",
+  "file": "/home/wjf/Desktop/MyPaillier/Quickmodm.cpp"
+},
+{
+  "directory": "/home/wjf/Desktop/MyPaillier/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-9    -g   -std=c++14 -o CMakeFiles/paillier.dir/paillier.cpp.o -c /home/wjf/Desktop/MyPaillier/paillier.cpp",
+  "file": "/home/wjf/Desktop/MyPaillier/paillier.cpp"
+}
+]

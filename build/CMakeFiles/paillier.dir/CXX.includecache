@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/wjf/Desktop/MyPaillier/paillier.cpp
+stdlib.h
+-
+stdio.h
+-
+time.h
+-
+gmp.h
+-
+

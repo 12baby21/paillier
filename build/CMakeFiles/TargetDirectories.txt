@@ -1,0 +1,4 @@
+/home/wjf/Desktop/MyPaillier/build/CMakeFiles/rebuild_cache.dir
+/home/wjf/Desktop/MyPaillier/build/CMakeFiles/edit_cache.dir
+/home/wjf/Desktop/MyPaillier/build/CMakeFiles/Quickmodm.dir
+/home/wjf/Desktop/MyPaillier/build/CMakeFiles/paillier.dir
