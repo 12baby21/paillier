@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <gmp.h>
-
+// 11
 void GenKey(mp_bitcnt_t bits, mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mpz_ptr n_2)
 {
     // Random State
