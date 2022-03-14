@@ -13,6 +13,7 @@
   "C_Cpp_Runner.warningsAsError": false,
   "files.associations": {
     "iostream": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "ostream": "cpp"
   }
 }

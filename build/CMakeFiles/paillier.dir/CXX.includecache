@@ -11,8 +11,8 @@ stdlib.h
 -
 stdio.h
 -
-time.h
--
 gmp.h
+-
+iostream
 -
 
