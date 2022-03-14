@@ -1,7 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 #include <gmp.h>
+#include <iostream>
+
+using namespace std;
+
 // 11
 void GenKey(mp_bitcnt_t bits, mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mpz_ptr n_2)
 {
@@ -21,8 +24,6 @@ void GenKey(mp_bitcnt_t bits, mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, 
     mpz_setbit(PrimeQ, bits);
     mpz_nextprime(PrimeP, PrimeP);
     mpz_nextprime(PrimeQ, PrimeQ);
-
-
 
     // Generate Public Key (n, g)
     // n = PrimeP * PrimeQ
@@ -80,34 +81,59 @@ void Decryption(mpz_ptr res, mpz_ptr c, mpz_ptr lambda, mpz_ptr n, mpz_ptr n_2)
     mpz_mod(res, l, n);
 }
 
+// Quantized to int16
+void Encode(int &res, float raw_num, float Rmax, float Rmin)
+{
+    // S = (Rmax - Rmin) / (Qmax - Qmin)
+    // Z = 0
+    // Q = R / S + Z
+    int new_raw_num;
+    new_raw_num = raw_num > 3 ? 3 : raw_num;
+    new_raw_num = raw_num < -3 ? -3 : raw_num;
+    float S = (Rmax - Rmin) / 131072;
+    float Z = 65536 - Rmax / S; // 0
+    int Q = new_raw_num / S + Z;
+    cout << raw_num << " is quantized to " << Q << endl;
+    res = Q;
+}
+
+void Decode(float &res, int encoded_num, float Rmax, float Rmin)
+{
+    float S = (Rmax - Rmin) / 131072;
+    float Z = 65536 - Rmax / S; // 0
+    float R = (encoded_num - Z) * S;
+    cout << encoded_num << " is restore to " << R << endl;
+    res = R;
+}
 
 int main()
 {
-    // Randomly init 100 * 100 words
-    
-    // plaintext
-    mpz_t m1;
-    mpz_init_set_str(m1, "1356205320457610288745198967657644166379972189839804389074591563666634066646564410685955217825048626066190866536592405966964024022236587593447122392540033893121248948780525117822889230574978651418075403357439692743398250207060920929117606033490559159560987768768324823011579283223392964454439904542675637683985296529882973798752471233683249209762843835985174607047556306705224118165162905676610067022517682197138138621344578050034245933990790845007906416093198845798901781830868021761765904777531676765131379495584915533823288125255520904108500256867069512326595285549579378834222350197662163243932424184772115345", 0);
-    //mpz_t m2;
-    mpz_t m2;
-    mpz_init_set_str(m2, "1356205320457610288745198967657644166379972189839804389074591563666634066646564410685955217825048626066190866536592405966964024022236587593447122392540033893121248948780525117822889230574978651418075403357439692743398250207060920929117606033490559159560987768768324823011579283223392964454439904542675637683985296529882973798752471233683249209762843835985174607047556306705224118165162905676610067022517682197138138621344578050034245933990790845007906416093198845798901781830868021761765904777531676765131379495584915533823288125255520904108500256867069512326595285549579378834222350197662163243932424184772115345", 0);
-    //mpz_t m2;
-    //mpz_init_set(m2, 1);
+    // raw_num -> encoded_num -> encrypt -> decrypt -> decode
 
-    // ciphertext
-    mpz_t c1;
-    mpz_init(c1);
-    mpz_t c2;
-    mpz_init(c2);
+    // Encode a float number
+    float raw_num = 3.44896;
+    int encoded_num = 0;
+    float decoded_num = 0;
+    Encode(encoded_num, raw_num, 3, -3);
 
-    // result
-    mpz_t res;
-    mpz_init(res);
+    // 编码后的明文
+    mpz_t encoded_plain;
+    mpz_init_set_si(encoded_plain, encoded_num);
+    gmp_printf("encoded_plain = %Zd\n", encoded_plain);
 
-    clock_t start = clock();
-    
-    // PubKey(n, g)
-    // SecKey(lambda, mu)
+    // 编码后的密文
+    mpz_t encoded_cipher;
+    mpz_init(encoded_cipher);
+
+    // 解码后的密文
+    mpz_t decoded_cipher;
+    mpz_init(decoded_cipher);
+
+    // 解码后的明文
+    mpz_t decoded_plain;
+    mpz_init(decoded_plain);
+
+    // Paillier procedure
     mpz_t n, g, lambda, mu, n_2;
     mpz_init(n);
     mpz_init(g);
@@ -115,37 +141,30 @@ int main()
     mpz_init(mu);
     mpz_init(n_2);
     mp_bitcnt_t bits = 1024;
-
-    clock_t ge0 = clock();
     GenKey(bits, n, g, lambda, mu, n_2);
-    clock_t ge1 = clock();
-    
-    clock_t en0 = clock();
-    Encryption(c1, m1, g, n, n_2);
-    Encryption(c2, m2, g, n, n_2);
-    clock_t en1 = clock();
-    //Encryption(c2, m2, g, n, n_2);
+    Encryption(encoded_cipher, encoded_plain, g, n, n_2);
+    gmp_printf("encoded_cipher = %Zd\n", encoded_cipher);
+    Decryption(decoded_plain, encoded_cipher, lambda, n, n_2);
+    gmp_printf("decoded_plain = %Zd\n", decoded_plain);
 
-    clock_t cal0 = clock();
-    // res = m1 + m2
-    mpz_mul(res, c1, c2);
-    clock_t cal1 = clock();
+    // mpz转化为int
+    encoded_num = mpz_get_si(decoded_plain);
+    cout << "encoded number after decryption is " << encoded_num << endl;
 
+    // Decode a number in int16 presentation
+    Decode(decoded_num, encoded_num, 3, -3);
+    cout << "the origin number is " << decoded_num << endl;
 
-    clock_t de0 = clock();
-    Decryption(res, res, lambda, n, n_2);
-    clock_t de1 = clock();
+    // 释放内存
+    mpz_clear(encoded_plain);
+    mpz_clear(encoded_cipher);
+    mpz_clear(decoded_plain);
+    mpz_clear(decoded_cipher);
+    mpz_clear(n);
+    mpz_clear(g);
+    mpz_clear(lambda);
+    mpz_clear(mu);
+    mpz_clear(n_2);
 
-
-    clock_t finish = clock();
-
-    // Print Result
-    gmp_printf("%Zd\n+\n%Zd\n=\n%Zd\n", m1, m2, res);
-    printf("Key Generation took %ldus\n", (ge1 - ge0));
-    printf("Encrytion took %ldus\n", (en1 - en0));
-    printf("Addtioin took %ldus\n", (cal1 - cal0));
-    printf("Decrytion took %ldus\n", de1 - de0);
-    printf("Total took %ldus\n", finish - start);
     return 0;
 }
-
