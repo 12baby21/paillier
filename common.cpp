@@ -7,83 +7,85 @@
 
 using namespace std;
 
-/**
- * @brief 
- * 
- * @param N: the length of prime 
- */
-void GenKey(mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mp_bitcnt_t bits)
+void GenKey(mp_bitcnt_t bits, mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mpz_ptr n_2)
 {
+    // Random State
     clock_t time = clock();
     gmp_randstate_t grt;
     gmp_randinit_default(grt);
     gmp_randseed_ui(grt, time);
 
-    // generate two big primes p and q
-    mpz_t p;
-    mpz_init(p);
-    // mpz_urandomb(mpz_t rop, gmp_randstate_t, mp_bitcnt_t n)
-    // generate a random uniform integer in [0, 2^n-1], the result is saved in rop
-    mpz_urandomb(p, grt, bits);
-    mpz_nextprime(p, p);
+    // Generate Two big Primes
+    mpz_t PrimeP, PrimeQ;
+    mpz_init(PrimeP);
+    mpz_init(PrimeQ);
+    mpz_urandomb(PrimeP, grt, bits);
+    mpz_urandomb(PrimeQ, grt, bits);
+    mpz_setbit(PrimeP, bits);
+    mpz_setbit(PrimeQ, bits);
+    mpz_nextprime(PrimeP, PrimeP);
+    mpz_nextprime(PrimeQ, PrimeQ);
 
-    mpz_t q;
-    mpz_init(q);
-    // mpz_urandomb(mpz_t rop, gmp_randstate_t, mp_bitcnt_t n)
-    // generate a random uniform integer in [0, 2^n-1], the result is saved in rop
-    mpz_urandomb(q, grt, bits);
-    mpz_nextprime(q, q);
-    
-    // Generate one = 1 for convenience
-    mpz_t one;
-    mpz_init(one);
-    mpz_set_si(one, 1);
+    // Generate Public Key (n, g)
+    // n = PrimeP * PrimeQ
+    // g = n + 1, if PrimeP and PrimeQ have the same length
+    mpz_mul(n, PrimeP, PrimeQ);
+    mpz_add_ui(g, n, 1);
 
-    // PubKey: n = p*q
-    mpz_init(n);
-    mpz_mul(n, p, q);
-    // PubKey: g = n+1
-    mpz_init(g);
-    mpz_add(g, n, one);
+    // PrimeP = PrimeP-1
+    // PrimeQ = PrimeQ-1
+    mpz_sub_ui(PrimeP, PrimeP, 1);
+    mpz_sub_ui(PrimeQ, PrimeQ, 1);
 
-    // p = p-1; q = q-1;
-    mpz_sub(p, p, one);
-    mpz_sub(q, q, one);
+    // Generate Secret Key (lambda, mu)
+    // lambda = (PrimeP-1) * (PrimeQ-1)
+    // mu = lambda -1
+    mpz_mul(lambda, PrimeP, PrimeQ);
+    mpz_sub_ui(mu, lambda, 1);
 
-    // SecKey: lambda = lcm(p-1, q-1)
-    mpz_init(lambda);
-    mpz_lcm(lambda, p, q);
-    // SecKey: mu = lambda - 1
-    mpz_init(mu);
-    mpz_sub(mu, mu, one);
+    // n_2 = n^2
+    mpz_mul(n_2, n, n);
 }
 
-void Encryption(mpz_ptr c, mpz_ptr m, mpz_ptr n, mpz_ptr g, mpz_ptr n_2)
+void Encryption(mpz_ptr c, mpz_ptr m, mpz_ptr g, mpz_ptr n, mpz_ptr n_2)
 {
-    mpz_t e;
-    mpz_init_set_ui(e, 65537);
-    
+    // Random Key
     mpz_t r;
-    mpz_init(r);
-    mpz_invert(r, e, n);
+    mpz_init_set_ui(r, 2);
 
-    mpz_t gm, rn;
+    // gm = g^m mod n^2
+    // rn = r^n mod n^2
+    mpz_t gm;
+    mpz_t rn;
     mpz_init(gm);
     mpz_init(rn);
     mpz_powm(gm, g, m, n_2);
     mpz_powm(rn, r, n, n_2);
-
+    // c = g^m * r^n mod n^2 = (g^m mod n^2) * (r^n mod n^2) mod n^2
+    // c= gm * rn mod n^2
     mpz_mul(c, gm, rn);
     mpz_mod(c, c, n_2);
- 
 }
 
-void Decryption(mpz_ptr m, mpz_ptr c, mpz_ptr lambda, mpz_ptr n_2, mpz_ptr mu, mpz_ptr n)
+void Decryption(mpz_ptr res, mpz_ptr c, mpz_ptr lambda, mpz_ptr n, mpz_ptr n_2)
 {
     mpz_t l;
     mpz_init(l);
     mpz_powm(l, c, lambda, n_2);
-    mpz_mul(l, l, mu);
-    mpz_mod(m, l, n);
+    mpz_sub_ui(l, l, 1);
+    mpz_div(l, l, n);
+
+    mpz_t lambdainvert;
+    mpz_init(lambdainvert);
+    mpz_invert(lambdainvert, lambda, n);
+    mpz_mul(l, l, lambdainvert);
+    mpz_mod(res, l, n);
+}
+
+// add
+void EncryptAdd(mpz_ptr res, mpz_ptr c1, mpz_ptr c2, mpz_ptr n_2)
+{
+    mpz_mul(res, c1, c2);
+    mpz_mod(res, res, n_2);
 }
 

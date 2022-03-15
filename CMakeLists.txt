@@ -21,8 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(PAILLIER LANGUAGES CXX)
 
 
-add_executable(paillier paillier.cpp)
-add_executable(Quickmodm Quickmodm.cpp)
+add_executable(paillier common.cpp paillier.cpp)
 
-target_link_libraries(Quickmodm gmp)
+
 target_link_libraries(paillier gmp)

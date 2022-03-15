@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Quickmodm
-
-# Build rule for target.
-Quickmodm: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Quickmodm
-.PHONY : Quickmodm
-
-# fast build rule for target.
-Quickmodm/fast:
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/build
-.PHONY : Quickmodm/fast
-
-#=============================================================================
 # Target rules for targets named paillier
 
 # Build rule for target.
@@ -136,32 +123,32 @@ paillier/fast:
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/build
 .PHONY : paillier/fast
 
-Quickmodm.o: Quickmodm.cpp.o
+common.o: common.cpp.o
 
-.PHONY : Quickmodm.o
+.PHONY : common.o
 
 # target to build an object file
-Quickmodm.cpp.o:
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/Quickmodm.cpp.o
-.PHONY : Quickmodm.cpp.o
+common.cpp.o:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/common.cpp.o
+.PHONY : common.cpp.o
 
-Quickmodm.i: Quickmodm.cpp.i
+common.i: common.cpp.i
 
-.PHONY : Quickmodm.i
+.PHONY : common.i
 
 # target to preprocess a source file
-Quickmodm.cpp.i:
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/Quickmodm.cpp.i
-.PHONY : Quickmodm.cpp.i
+common.cpp.i:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/common.cpp.i
+.PHONY : common.cpp.i
 
-Quickmodm.s: Quickmodm.cpp.s
+common.s: common.cpp.s
 
-.PHONY : Quickmodm.s
+.PHONY : common.s
 
 # target to generate assembly for a file
-Quickmodm.cpp.s:
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/Quickmodm.cpp.s
-.PHONY : Quickmodm.cpp.s
+common.cpp.s:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/common.cpp.s
+.PHONY : common.cpp.s
 
 paillier.o: paillier.cpp.o
 
@@ -198,11 +185,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... Quickmodm"
 	@echo "... paillier"
-	@echo "... Quickmodm.o"
-	@echo "... Quickmodm.i"
-	@echo "... Quickmodm.s"
+	@echo "... common.o"
+	@echo "... common.i"
+	@echo "... common.s"
 	@echo "... paillier.o"
 	@echo "... paillier.i"
 	@echo "... paillier.s"

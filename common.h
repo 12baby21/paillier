@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <gmpxx.h>
-111
-void GenKey(mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mp_bitcnt_t bits);
-void Encryption(mpz_ptr c, mpz_ptr m, mpz_ptr n, mpz_ptr g, mpz_ptr n_2);
-void Decryption(mpz_ptr m, mpz_ptr c, mpz_ptr lambda, mpz_ptr n_2, mpz_ptr mu, mpz_ptr n);
 
+void GenKey(mp_bitcnt_t bits, mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mpz_ptr n_2);
+void Encryption(mpz_ptr c, mpz_ptr m, mpz_ptr g, mpz_ptr n, mpz_ptr n_2);
+void Decryption(mpz_ptr res, mpz_ptr c, mpz_ptr lambda, mpz_ptr n, mpz_ptr n_2);
+void EncryptAdd(mpz_ptr res, mpz_ptr c1, mpz_ptr c2, mpz_ptr n_2);
 
 #endif

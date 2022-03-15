@@ -53,7 +53,6 @@ CMAKE_BINARY_DIR = /home/wjf/Desktop/MyPaillier/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Quickmodm.dir/all
 all: CMakeFiles/paillier.dir/all
 
 .PHONY : all
@@ -64,37 +63,9 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Quickmodm.dir/clean
 clean: CMakeFiles/paillier.dir/clean
 
 .PHONY : clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/Quickmodm.dir
-
-# All Build rule for target.
-CMakeFiles/Quickmodm.dir/all:
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/depend
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=1,2 "Built target Quickmodm"
-.PHONY : CMakeFiles/Quickmodm.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/Quickmodm.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Quickmodm.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 0
-.PHONY : CMakeFiles/Quickmodm.dir/rule
-
-# Convenience name for target.
-Quickmodm: CMakeFiles/Quickmodm.dir/rule
-
-.PHONY : Quickmodm
-
-# clean rule for target.
-CMakeFiles/Quickmodm.dir/clean:
-	$(MAKE) -f CMakeFiles/Quickmodm.dir/build.make CMakeFiles/Quickmodm.dir/clean
-.PHONY : CMakeFiles/Quickmodm.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/paillier.dir
@@ -103,12 +74,12 @@ CMakeFiles/Quickmodm.dir/clean:
 CMakeFiles/paillier.dir/all:
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/depend
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=3,4 "Built target paillier"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=1,2,3 "Built target paillier"
 .PHONY : CMakeFiles/paillier.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/paillier.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/paillier.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 0
 .PHONY : CMakeFiles/paillier.dir/rule
