@@ -89,3 +89,60 @@ void EncryptAdd(mpz_ptr res, mpz_ptr c1, mpz_ptr c2, mpz_ptr n_2)
     mpz_mod(res, res, n_2);
 }
 
+// mul  D(c^m) = D(c) * m
+void EncryptMul(mpz_ptr res, mpz_ptr c, unsigned m, mpz_ptr n_2)
+{
+    mpz_powm_ui(res, c, m, n_2);
+}
+
+void Encode(mpz_ptr res, mpz_ptr n, float scalar, int scale = 1e6)
+{
+    bool flag = (scalar < 0);
+    if (flag)
+        scalar = -scalar;
+    unsigned after_scale = static_cast<unsigned>(scalar * scale);
+    mpz_t tmp1;
+    mpz_init(tmp1);
+    if (flag)
+    {
+        mpz_sub_ui(res, n, after_scale);
+    }
+    else
+    {
+        mpz_set_ui(res, after_scale);
+    }
+}
+
+void Decode(float &res, mpz_ptr n, mpz_ptr cipher, int scale_factor = 1e6)
+{
+    int ret;
+    mpz_t forPositive; // n/3
+    mpz_t forNegative; // 2n/3
+    mpz_init_set(forPositive, n);
+    mpz_init_set(forNegative, n);
+
+    mpz_div_ui(forPositive, forPositive, 3);
+    mpz_mul_ui(forNegative, forPositive, 2);
+
+    int isPositive = mpz_cmp(forPositive, cipher);
+    int isNegative = mpz_cmp(cipher, forNegative);
+
+    if (isNegative > 0)
+    {
+        mpz_t tmp;
+        mpz_init(tmp);
+        mpz_sub(tmp, cipher, n);
+        ret = mpz_get_si(tmp);
+        mpz_clear(tmp);
+    }
+    else if (isPositive > 0)
+    {
+        ret = mpz_get_si(cipher);
+    }
+    else
+    {
+        cout << "There is a possible OVERFLOW!\n";
+    }
+
+    res = static_cast<float>(ret) / scale_factor;
+}

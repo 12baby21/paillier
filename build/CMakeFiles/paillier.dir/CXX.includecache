@@ -29,6 +29,8 @@ gmpxx.h
 -
 iostream
 -
+string
+-
 common.h
 /home/wjf/Desktop/MyPaillier/common.h
 
