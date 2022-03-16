@@ -78,6 +78,7 @@ void Decryption(mpz_ptr res, mpz_ptr c, mpz_ptr lambda, mpz_ptr n, mpz_ptr n_2)
     mpz_t lambdainvert;
     mpz_init(lambdainvert);
     mpz_invert(lambdainvert, lambda, n);
+    // mpz_mod(lambdainvert, lambdainvert, n);
     mpz_mul(l, l, lambdainvert);
     mpz_mod(res, l, n);
 }
@@ -138,7 +139,8 @@ void Decode(float &res, mpz_ptr n, mpz_ptr plain, bool isMul, int scale_factor =
     }
     else if (isPositive == 1)
     {
-        if(isMul)   mpz_div_ui(plain, plain, 1e6);
+        // 因为两个乘数都乘了1e6
+        if(isMul)     mpz_div_ui(plain, plain, 1e6);
         ret = mpz_get_si(plain);
     }
     else

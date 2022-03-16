@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     // Encode a float number
     float op1 = 5.0f;
     float op2 = -2.24677f;
-    float scalar = 7.0f;
+    float scalar = 7.111111111f;
     
     if(argc > 1) 
     {
