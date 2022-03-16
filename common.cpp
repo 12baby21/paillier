@@ -90,9 +90,10 @@ void EncryptAdd(mpz_ptr res, mpz_ptr c1, mpz_ptr c2, mpz_ptr n_2)
 }
 
 // mul  D(c^m) = D(c) * m
-void EncryptMul(mpz_ptr res, mpz_ptr c, unsigned m, mpz_ptr n_2)
+void EncryptMul(mpz_ptr res, mpz_ptr c, mpz_ptr m, mpz_ptr n_2)
 {
-    mpz_powm_ui(res, c, m, n_2);
+    // 对于标量乘法，假设标量大于0
+    mpz_powm(res, c, m, n_2);
 }
 
 void Encode(mpz_ptr res, mpz_ptr n, float scalar, int scale = 1e6)
@@ -113,7 +114,7 @@ void Encode(mpz_ptr res, mpz_ptr n, float scalar, int scale = 1e6)
     }
 }
 
-void Decode(float &res, mpz_ptr n, mpz_ptr cipher, int scale_factor = 1e6)
+void Decode(float &res, mpz_ptr n, mpz_ptr plain, bool isMul, int scale_factor = 1e6)
 {
     int ret;
     mpz_t forPositive; // n/3
@@ -124,20 +125,21 @@ void Decode(float &res, mpz_ptr n, mpz_ptr cipher, int scale_factor = 1e6)
     mpz_div_ui(forPositive, forPositive, 3);
     mpz_mul_ui(forNegative, forPositive, 2);
 
-    int isPositive = mpz_cmp(forPositive, cipher);
-    int isNegative = mpz_cmp(cipher, forNegative);
+    int isPositive = mpz_cmp(forPositive, plain);
+    int isNegative = mpz_cmp(plain, forNegative);
 
-    if (isNegative > 0)
+    if (isNegative == 1)
     {
         mpz_t tmp;
         mpz_init(tmp);
-        mpz_sub(tmp, cipher, n);
+        mpz_sub(tmp, plain, n);
         ret = mpz_get_si(tmp);
         mpz_clear(tmp);
     }
-    else if (isPositive > 0)
+    else if (isPositive == 1)
     {
-        ret = mpz_get_si(cipher);
+        if(isMul)   mpz_div_ui(plain, plain, 1e6);
+        ret = mpz_get_si(plain);
     }
     else
     {
@@ -145,4 +147,5 @@ void Decode(float &res, mpz_ptr n, mpz_ptr cipher, int scale_factor = 1e6)
     }
 
     res = static_cast<float>(ret) / scale_factor;
+    
 }
