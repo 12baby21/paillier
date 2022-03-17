@@ -91,10 +91,28 @@ void EncryptAdd(mpz_ptr res, mpz_ptr c1, mpz_ptr c2, mpz_ptr n_2)
 }
 
 // mul  D(c^m) = D(c) * m
-void EncryptMul(mpz_ptr res, mpz_ptr c, mpz_ptr m, mpz_ptr n_2)
+void EncryptMul(mpz_ptr res, mpz_ptr c, mpz_ptr m, mpz_ptr n, mpz_ptr nsquare)
 {
-    // 对于标量乘法，假设标量大于0
-    mpz_powm(res, c, m, n_2);
+    mpz_t max_int;     // n/3
+    mpz_t forNegative; // 2n/3
+    mpz_init(max_int);
+    mpz_init(forNegative);
+
+    mpz_div_ui(max_int, n, 3);
+    mpz_mul_ui(forNegative, max_int, 2);
+
+    if (mpz_cmp(m, forNegative) == 1)
+    {
+        mpz_t neg_c, neg_scalar;
+        mpz_init(neg_c);
+        mpz_init(neg_scalar);
+        mpz_invert(neg_c, c, nsquare);
+        mpz_sub(neg_scalar, n, m);
+        mpz_powm(res, neg_c, neg_scalar, nsquare);
+        return;
+    }
+
+    mpz_powm(res, c, m, nsquare);
 }
 
 void Encode(mpz_ptr res, mpz_ptr n, float scalar, int scale = 1e6)
@@ -118,36 +136,48 @@ void Encode(mpz_ptr res, mpz_ptr n, float scalar, int scale = 1e6)
 void Decode(float &res, mpz_ptr n, mpz_ptr plain, bool isMul, int scale_factor = 1e6)
 {
     int ret;
-    mpz_t forPositive; // n/3
+    mpz_t max_int;     // n/3
     mpz_t forNegative; // 2n/3
-    mpz_init_set(forPositive, n);
-    mpz_init_set(forNegative, n);
+    mpz_init(max_int);
+    mpz_init(forNegative);
+    mpz_div_ui(max_int, n, 3);
+    mpz_mul_ui(forNegative, max_int, 2);
 
-    mpz_div_ui(forPositive, forPositive, 3);
-    mpz_mul_ui(forNegative, forPositive, 2);
-
-    int isPositive = mpz_cmp(forPositive, plain);
-    int isNegative = mpz_cmp(plain, forNegative);
-
-    if (isNegative == 1)
+    if (!isMul)
     {
-        mpz_t tmp;
-        mpz_init(tmp);
-        mpz_sub(tmp, plain, n);
-        ret = mpz_get_si(tmp);
-        mpz_clear(tmp);
-    }
-    else if (isPositive == 1)
-    {
-        // 因为两个乘数都乘了1e6
-        if(isMul)     mpz_div_ui(plain, plain, 1e6);
-        ret = mpz_get_si(plain);
+
+        int isPositive = mpz_cmp(max_int, plain);
+        int isNegative = mpz_cmp(plain, forNegative);
+
+        if (isNegative == 1)
+        {
+            mpz_t tmp;
+            mpz_init(tmp);
+            mpz_sub(tmp, plain, n);
+            ret = mpz_get_si(tmp);
+            mpz_clear(tmp);
+        }
+        else if (isPositive == 1)
+        {
+            ret = mpz_get_si(plain);
+        }
+        else
+        {
+            cout << "There is a possible OVERFLOW!\n";
+        }
     }
     else
     {
-        cout << "There is a possible OVERFLOW!\n";
+        int isPositive = mpz_cmp(max_int, plain);
+        int isNegative = mpz_cmp(plain, forNegative);
+        if(isNegative == 1)
+            mpz_sub(plain, n, plain);
+        gmp_printf("plain = %Zd\n", plain);
+        mpz_div_ui(plain, plain, scale_factor);
+        ret = mpz_get_si(plain);
+        if(isNegative == 1)  ret = -ret;
+        cout << ret << endl;
     }
 
     res = static_cast<float>(ret) / scale_factor;
-    
 }

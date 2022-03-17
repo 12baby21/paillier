@@ -11,9 +11,9 @@ int main(int argc, char* argv[])
     // raw_num -> encoded_num -> encrypt -> decrypt -> decode
 
     // Encode a float number
-    float op1 = 5.0f;
+    float op1 = -5.0f;
     float op2 = -2.24677f;
-    float scalar = 7.111111111f;
+    float scalar = -7.111111111f;
     
     if(argc > 1) 
     {
@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
     }
     mpz_t encoded_op1;
     mpz_t encoded_op2;
+    mpz_t encoded_scalar;
     mpz_init(encoded_op1);
     mpz_init(encoded_op2);
-    mpz_t encoded_scalar;
     mpz_init(encoded_scalar);
     float decoded_op1;
     float decoded_op2;
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     Encode(encoded_scalar, n, scalar, 1e6);
     // gmp_printf("encoded_op1 = %Zd\n", encoded_op1);
     // gmp_printf("encoded_op2 = %Zd\n", encoded_op2);
-    gmp_printf("encoded_scalar = %Zd\n", encoded_scalar);
+    // gmp_printf("encoded_scalar = %Zd\n", encoded_scalar);
     
     // Encryption
     mpz_t cipher_op1;
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
     mpz_t mul_res;
     mpz_init(mul_res);
     // gmp_printf("%Zd\n", encoded_op2);
-    EncryptMul(mul_res, cipher_op1, encoded_scalar, n_2);
+    EncryptMul(mul_res, cipher_op1, encoded_scalar, n, n_2);
     // gmp_printf("mul_res = %Zd\n", mul_res);
 
 
@@ -80,10 +80,10 @@ int main(int argc, char* argv[])
     mpz_t my_res_mul;
     mpz_init(my_res_mul);
     Decryption(my_res_mul, mul_res, lambda, n, n_2);
-    gmp_printf("my_res_mul = %Zd\n", my_res_mul);
+    // gmp_printf("my_res_mul = %Zd\n", my_res_mul);
     float ret2 = 0;
     Decode(ret2, n, my_res_mul, true, 1e6);
-    printf("(%f) * (1.7352) = %f\n", op1, ret2);
+    printf("(%f) * (%f) = %f\n", op1, scalar, ret2);
 
     return 0;
 }
