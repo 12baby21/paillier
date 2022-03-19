@@ -21,4 +21,5 @@ void encrypt_calGrad_weight(mpz_ptr gradWeight,
                             mpz_ptr lambda,
                             mpz_ptr n,
                             mpz_ptr nsquare);
+void GenRandom(mpz_ptr res, int bits);
 #endif

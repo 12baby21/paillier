@@ -187,3 +187,17 @@ void encrypt_calGrad_weight(mpz_ptr gradWeight,
     // gradWeight需要在方法外初始化
     EncryptMul(gradWeight, diff, input, n, nsquare);
 }
+
+void GenRandom(mpz_ptr res, int bits)
+{
+    // Random State
+    clock_t time = clock();
+    gmp_randstate_t grt;
+    gmp_randinit_default(grt);
+    gmp_randseed_ui(grt, time);
+
+    // Generate a random number R
+    mpz_urandomb(res, grt, bits);
+    mpz_setbit(res, bits);
+    mpz_nextprime(res, res);
+}
