@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <gmpxx.h>
-
+#include <vector>
 using namespace std;
 
 void GenKey(mp_bitcnt_t bits, mpz_ptr n, mpz_ptr g, mpz_ptr lambda, mpz_ptr mu, mpz_ptr n_2)
@@ -142,13 +142,11 @@ void Decode(float &res, mpz_ptr n, mpz_ptr plain, bool isMul, int scale_factor =
     mpz_init(forNegative);
     mpz_div_ui(max_int, n, 3);
     mpz_mul_ui(forNegative, max_int, 2);
+    int isPositive = mpz_cmp(max_int, plain);
+    int isNegative = mpz_cmp(plain, forNegative);
 
     if (!isMul)
     {
-
-        int isPositive = mpz_cmp(max_int, plain);
-        int isNegative = mpz_cmp(plain, forNegative);
-
         if (isNegative == 1)
         {
             mpz_t tmp;
@@ -168,16 +166,24 @@ void Decode(float &res, mpz_ptr n, mpz_ptr plain, bool isMul, int scale_factor =
     }
     else
     {
-        int isPositive = mpz_cmp(max_int, plain);
-        int isNegative = mpz_cmp(plain, forNegative);
-        if(isNegative == 1)
+        if (isNegative == 1)
             mpz_sub(plain, n, plain);
-        gmp_printf("plain = %Zd\n", plain);
         mpz_div_ui(plain, plain, scale_factor);
         ret = mpz_get_si(plain);
-        if(isNegative == 1)  ret = -ret;
-        cout << ret << endl;
+        if (isNegative == 1)
+            ret = -ret;
     }
 
     res = static_cast<float>(ret) / scale_factor;
+}
+
+void encrypt_calGrad_weight(mpz_ptr gradWeight,
+                            mpz_ptr diff,
+                            mpz_ptr input,
+                            mpz_ptr lambda,
+                            mpz_ptr n,
+                            mpz_ptr nsquare)
+{ 
+    // gradWeight需要在方法外初始化
+    EncryptMul(gradWeight, diff, input, n, nsquare);
 }

@@ -19,6 +19,8 @@ time.h
 -
 gmpxx.h
 -
+vector
+-
 
 /home/wjf/Desktop/MyPaillier/paillier.cpp
 stdlib.h

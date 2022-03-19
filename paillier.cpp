@@ -6,21 +6,15 @@
 #include "common.h"
 using namespace std;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     // raw_num -> encoded_num -> encrypt -> decrypt -> decode
 
     // Encode a float number
-    float op1 = -5.0f;
+    float op1 = -0.520279f;
     float op2 = -2.24677f;
-    float scalar = -7.111111111f;
-    
-    if(argc > 1) 
-    {
-        op1 = stof(argv[1]);
-        op2 = stof(argv[2]);
-        scalar = stof(argv[3]);
-    }
+    float scalar = 3.732;
+
     mpz_t encoded_op1;
     mpz_t encoded_op2;
     mpz_t encoded_scalar;
@@ -46,7 +40,7 @@ int main(int argc, char* argv[])
     // gmp_printf("encoded_op1 = %Zd\n", encoded_op1);
     // gmp_printf("encoded_op2 = %Zd\n", encoded_op2);
     // gmp_printf("encoded_scalar = %Zd\n", encoded_scalar);
-    
+
     // Encryption
     mpz_t cipher_op1;
     mpz_t cipher_op2;
@@ -55,35 +49,17 @@ int main(int argc, char* argv[])
     Encryption(cipher_op1, encoded_op1, g, n, n_2);
     Encryption(cipher_op2, encoded_op2, g, n, n_2);
 
-    // add
-    mpz_t add_res;
-    mpz_init(add_res);
-    EncryptAdd(add_res, cipher_op1, cipher_op2, n_2);
 
-    // mul
-    mpz_t mul_res;
-    mpz_init(mul_res);
-    // gmp_printf("%Zd\n", encoded_op2);
-    EncryptMul(mul_res, cipher_op1, encoded_scalar, n, n_2);
-    // gmp_printf("mul_res = %Zd\n", mul_res);
+    mpz_t res;
+    mpz_init(res);
+    float fres = 0;
+    encrypt_calGrad_weight(res, cipher_op1, encoded_scalar, lambda, n, n_2);
+    Decryption(res, res, lambda, n, n_2);
+    Decode(fres, n, res, true, 1e6);
+    cout << fres << endl;
 
+    
 
-    // Decrypion
-    mpz_t my_res_add;
-    mpz_init(my_res_add);
-
-    Decryption(my_res_add, add_res, lambda, n, n_2);
-    float ret1 = 0;
-    Decode(ret1, n, my_res_add, false, 1e6);
-    printf("(%f) + (%f) = %f\n", op1, op2, ret1);
-
-    mpz_t my_res_mul;
-    mpz_init(my_res_mul);
-    Decryption(my_res_mul, mul_res, lambda, n, n_2);
-    // gmp_printf("my_res_mul = %Zd\n", my_res_mul);
-    float ret2 = 0;
-    Decode(ret2, n, my_res_mul, true, 1e6);
-    printf("(%f) * (%f) = %f\n", op1, scalar, ret2);
 
     return 0;
 }
