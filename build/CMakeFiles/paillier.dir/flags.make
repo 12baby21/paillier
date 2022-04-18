@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=c++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/wjf/Desktop/MyPaillier/./include 
 

@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/paillier.dir/common.cpp.o"
   "CMakeFiles/paillier.dir/paillier.cpp.o"
+  "CMakeFiles/paillier.dir/src/common.cpp.o"
+  "CMakeFiles/paillier.dir/src/modPaillier.cpp.o"
   "paillier"
   "paillier.pdb"
 )

@@ -74,12 +74,12 @@ clean: CMakeFiles/paillier.dir/clean
 CMakeFiles/paillier.dir/all:
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/depend
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=1,2,3 "Built target paillier"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=1,2,3,4 "Built target paillier"
 .PHONY : CMakeFiles/paillier.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/paillier.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/paillier.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wjf/Desktop/MyPaillier/build/CMakeFiles 0
 .PHONY : CMakeFiles/paillier.dir/rule

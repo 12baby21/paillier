@@ -57,22 +57,9 @@ include CMakeFiles/paillier.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/paillier.dir/flags.make
 
-CMakeFiles/paillier.dir/common.cpp.o: CMakeFiles/paillier.dir/flags.make
-CMakeFiles/paillier.dir/common.cpp.o: ../common.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/paillier.dir/common.cpp.o"
-	/usr/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/paillier.dir/common.cpp.o -c /home/wjf/Desktop/MyPaillier/common.cpp
-
-CMakeFiles/paillier.dir/common.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/paillier.dir/common.cpp.i"
-	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wjf/Desktop/MyPaillier/common.cpp > CMakeFiles/paillier.dir/common.cpp.i
-
-CMakeFiles/paillier.dir/common.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/paillier.dir/common.cpp.s"
-	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wjf/Desktop/MyPaillier/common.cpp -o CMakeFiles/paillier.dir/common.cpp.s
-
 CMakeFiles/paillier.dir/paillier.cpp.o: CMakeFiles/paillier.dir/flags.make
 CMakeFiles/paillier.dir/paillier.cpp.o: ../paillier.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/paillier.dir/paillier.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/paillier.dir/paillier.cpp.o"
 	/usr/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/paillier.dir/paillier.cpp.o -c /home/wjf/Desktop/MyPaillier/paillier.cpp
 
 CMakeFiles/paillier.dir/paillier.cpp.i: cmake_force
@@ -83,19 +70,47 @@ CMakeFiles/paillier.dir/paillier.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/paillier.dir/paillier.cpp.s"
 	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wjf/Desktop/MyPaillier/paillier.cpp -o CMakeFiles/paillier.dir/paillier.cpp.s
 
+CMakeFiles/paillier.dir/src/common.cpp.o: CMakeFiles/paillier.dir/flags.make
+CMakeFiles/paillier.dir/src/common.cpp.o: ../src/common.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/paillier.dir/src/common.cpp.o"
+	/usr/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/paillier.dir/src/common.cpp.o -c /home/wjf/Desktop/MyPaillier/src/common.cpp
+
+CMakeFiles/paillier.dir/src/common.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/paillier.dir/src/common.cpp.i"
+	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wjf/Desktop/MyPaillier/src/common.cpp > CMakeFiles/paillier.dir/src/common.cpp.i
+
+CMakeFiles/paillier.dir/src/common.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/paillier.dir/src/common.cpp.s"
+	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wjf/Desktop/MyPaillier/src/common.cpp -o CMakeFiles/paillier.dir/src/common.cpp.s
+
+CMakeFiles/paillier.dir/src/modPaillier.cpp.o: CMakeFiles/paillier.dir/flags.make
+CMakeFiles/paillier.dir/src/modPaillier.cpp.o: ../src/modPaillier.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/paillier.dir/src/modPaillier.cpp.o"
+	/usr/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/paillier.dir/src/modPaillier.cpp.o -c /home/wjf/Desktop/MyPaillier/src/modPaillier.cpp
+
+CMakeFiles/paillier.dir/src/modPaillier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/paillier.dir/src/modPaillier.cpp.i"
+	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wjf/Desktop/MyPaillier/src/modPaillier.cpp > CMakeFiles/paillier.dir/src/modPaillier.cpp.i
+
+CMakeFiles/paillier.dir/src/modPaillier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/paillier.dir/src/modPaillier.cpp.s"
+	/usr/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wjf/Desktop/MyPaillier/src/modPaillier.cpp -o CMakeFiles/paillier.dir/src/modPaillier.cpp.s
+
 # Object files for target paillier
 paillier_OBJECTS = \
-"CMakeFiles/paillier.dir/common.cpp.o" \
-"CMakeFiles/paillier.dir/paillier.cpp.o"
+"CMakeFiles/paillier.dir/paillier.cpp.o" \
+"CMakeFiles/paillier.dir/src/common.cpp.o" \
+"CMakeFiles/paillier.dir/src/modPaillier.cpp.o"
 
 # External object files for target paillier
 paillier_EXTERNAL_OBJECTS =
 
-paillier: CMakeFiles/paillier.dir/common.cpp.o
 paillier: CMakeFiles/paillier.dir/paillier.cpp.o
+paillier: CMakeFiles/paillier.dir/src/common.cpp.o
+paillier: CMakeFiles/paillier.dir/src/modPaillier.cpp.o
 paillier: CMakeFiles/paillier.dir/build.make
 paillier: CMakeFiles/paillier.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable paillier"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wjf/Desktop/MyPaillier/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable paillier"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/paillier.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

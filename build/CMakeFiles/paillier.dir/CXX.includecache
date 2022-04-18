@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/wjf/Desktop/MyPaillier/common.h
+../include/common.h
 iostream
 -
 math.h
@@ -15,24 +15,28 @@ algorithm
 -
 stdlib.h
 -
-time.h
--
 gmpxx.h
 -
 vector
 -
 
-/home/wjf/Desktop/MyPaillier/paillier.cpp
-stdlib.h
+../include/modPaillier.h
+gmpxx.h
 -
-stdio.h
+common.h
+../include/common.h
+
+/home/wjf/Desktop/MyPaillier/paillier.cpp
+iostream
 -
 gmpxx.h
 -
-iostream
--
 string
+-
+time.h
 -
 common.h
 /home/wjf/Desktop/MyPaillier/common.h
+modPaillier.h
+/home/wjf/Desktop/MyPaillier/modPaillier.h
 

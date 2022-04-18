@@ -123,33 +123,6 @@ paillier/fast:
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/build
 .PHONY : paillier/fast
 
-common.o: common.cpp.o
-
-.PHONY : common.o
-
-# target to build an object file
-common.cpp.o:
-	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/common.cpp.o
-.PHONY : common.cpp.o
-
-common.i: common.cpp.i
-
-.PHONY : common.i
-
-# target to preprocess a source file
-common.cpp.i:
-	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/common.cpp.i
-.PHONY : common.cpp.i
-
-common.s: common.cpp.s
-
-.PHONY : common.s
-
-# target to generate assembly for a file
-common.cpp.s:
-	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/common.cpp.s
-.PHONY : common.cpp.s
-
 paillier.o: paillier.cpp.o
 
 .PHONY : paillier.o
@@ -177,6 +150,60 @@ paillier.cpp.s:
 	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/paillier.cpp.s
 .PHONY : paillier.cpp.s
 
+src/common.o: src/common.cpp.o
+
+.PHONY : src/common.o
+
+# target to build an object file
+src/common.cpp.o:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/src/common.cpp.o
+.PHONY : src/common.cpp.o
+
+src/common.i: src/common.cpp.i
+
+.PHONY : src/common.i
+
+# target to preprocess a source file
+src/common.cpp.i:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/src/common.cpp.i
+.PHONY : src/common.cpp.i
+
+src/common.s: src/common.cpp.s
+
+.PHONY : src/common.s
+
+# target to generate assembly for a file
+src/common.cpp.s:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/src/common.cpp.s
+.PHONY : src/common.cpp.s
+
+src/modPaillier.o: src/modPaillier.cpp.o
+
+.PHONY : src/modPaillier.o
+
+# target to build an object file
+src/modPaillier.cpp.o:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/src/modPaillier.cpp.o
+.PHONY : src/modPaillier.cpp.o
+
+src/modPaillier.i: src/modPaillier.cpp.i
+
+.PHONY : src/modPaillier.i
+
+# target to preprocess a source file
+src/modPaillier.cpp.i:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/src/modPaillier.cpp.i
+.PHONY : src/modPaillier.cpp.i
+
+src/modPaillier.s: src/modPaillier.cpp.s
+
+.PHONY : src/modPaillier.s
+
+# target to generate assembly for a file
+src/modPaillier.cpp.s:
+	$(MAKE) -f CMakeFiles/paillier.dir/build.make CMakeFiles/paillier.dir/src/modPaillier.cpp.s
+.PHONY : src/modPaillier.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... paillier"
-	@echo "... common.o"
-	@echo "... common.i"
-	@echo "... common.s"
 	@echo "... paillier.o"
 	@echo "... paillier.i"
 	@echo "... paillier.s"
+	@echo "... src/common.o"
+	@echo "... src/common.i"
+	@echo "... src/common.s"
+	@echo "... src/modPaillier.o"
+	@echo "... src/modPaillier.i"
+	@echo "... src/modPaillier.s"
 .PHONY : help
 
 

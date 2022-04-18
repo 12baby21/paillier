@@ -8,7 +8,7 @@
 					"build" : ".",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.10.2"
+						"string" : "3.0"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -26,7 +26,7 @@
 					[
 						0
 					],
-					"name" : "PAILLIER",
+					"name" : "paillier",
 					"targetIndexes" : 
 					[
 						0
@@ -38,7 +38,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "paillier::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-paillier-Debug-a782405f175d6168dd1c.json",
+					"jsonFile" : "target-paillier-Debug-a75419a3bf48ffd59fa2.json",
 					"name" : "paillier",
 					"projectIndex" : 0
 				}

@@ -771,7 +771,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "PAILLIER"
+			"value" : "paillier"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1112,6 +1112,30 @@
 			],
 			"type" : "PATH",
 			"value" : "/usr/local/helib_pack/share/cmake/helib"
+		},
+		{
+			"name" : "paillier_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/wjf/Desktop/MyPaillier/build"
+		},
+		{
+			"name" : "paillier_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/wjf/Desktop/MyPaillier"
 		}
 	],
 	"kind" : "cache",
